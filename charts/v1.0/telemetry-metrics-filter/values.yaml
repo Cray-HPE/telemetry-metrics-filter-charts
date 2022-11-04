@@ -1,8 +1,7 @@
 ---
 global:
-  appVersion: 0.0.1
+  appVersion: 0.0.2
 
-#todo change this back to stable!
 image:
   repository: artifactory.algol60.net/csm-docker/stable/telemetry-metrics-filter
   pullPolicy: IfNotPresent
