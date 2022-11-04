@@ -30,7 +30,7 @@ cray-service:
     telemetry-metrics-filter:
       name: "telemetry-metrics-filter"
       image:
-        repository: artifactory.algol60.net/csm-docker/unstable/telemetry-metrics-filter
+        repository: artifactory.algol60.net/csm-docker/stable/telemetry-metrics-filter
 #      ports:
 #        - name: http
 #          containerPort: 9088 #uncomment this to expose the port. not needed right now
