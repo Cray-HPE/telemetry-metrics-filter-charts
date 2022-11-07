@@ -67,10 +67,10 @@ cray-service:
           cpu: "4"
           memory: 128Mi
       volumeMounts:
-        name: telemetry-config-vol
-        mountPath: /usr/local/etc/service/kafka-topics.json
-        readOnly: true
-        subPath: kafka-topics.json
+        - name: telemetry-config-vol
+          mountPath: /usr/local/etc/service/kafka-topics.json
+          readOnly: true
+          subPath: kafka-topics.json
 
   volumes:
     telemetry-config-vol:
