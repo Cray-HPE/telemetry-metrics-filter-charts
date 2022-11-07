@@ -1,6 +1,6 @@
 ---
 global:
-  appVersion: 0.0.5
+  appVersion: 0.0.6
 
 image:
   repository: artifactory.algol60.net/csm-docker/stable/telemetry-metrics-filter
@@ -47,12 +47,12 @@ cray-service:
         - name: KAFKA_TOPIC_FILE
           value: "/usr/local/etc/service/kafka-topics.json"
 
-#      livenessProbe:
-#        httpGet:
-#          port: 27777
-#          path: /capmc/v1/liveness
-#        initialDelaySeconds: 10
-#        periodSeconds: 20
+      livenessProbe:
+        httpGet:
+          port: 9088
+          path: /metrics
+        initialDelaySeconds: 10
+        periodSeconds: 20
 #      readinessProbe:
 #        httpGet:
 #          port: 27777
