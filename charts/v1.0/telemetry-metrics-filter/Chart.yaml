@@ -1,6 +1,6 @@
 apiVersion: v2
 name: "telemetry-metrics-filter"
-version: 1.0.2
+version: 1.0.3
 description: "Kubernetes resources for telemetry-metric-filter"
 home: "https://github.com/Cray-HPE/telemetry-metric-filter-charts"
 sources:
@@ -8,7 +8,7 @@ sources:
 maintainers:
   - name: Hardware Management
     url: https://github.com/orgs/Cray-HPE/teams/cray-monitoring
-appVersion: "0.0.3"
+appVersion: "0.0.4"
 dependencies:
   - name: cray-service
     version: "~7.0.0"

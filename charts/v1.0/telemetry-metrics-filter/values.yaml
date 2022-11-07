@@ -1,6 +1,6 @@
 ---
 global:
-  appVersion: 0.0.3
+  appVersion: 0.0.4
 
 image:
   repository: artifactory.algol60.net/csm-docker/stable/telemetry-metrics-filter
@@ -46,8 +46,6 @@ cray-service:
           value: "300"
         - name: KAFKA_TOPIC_FILE
           value: "/usr/local/etc/service/kafka-topics.json"
-        - name: KAFKA_THROTTLING_CONFIG
-          value: "/usr/local/etc/service/topic-throttling.json"
 
 #      livenessProbe:
 #        httpGet:
@@ -69,21 +67,13 @@ cray-service:
           cpu: "4"
           memory: 128Mi
       volumeMounts:
-        - name: telemetry-config-vol
-          mountPath: /usr/local/etc/service/kafka-topics.json
-          readOnly: true
-          subPath: kafka-topics.json
-        - name: telemetry-rates-vol
-          mountPath: /usr/local/etc/service/topic-throttling.json
-          readOnly: true
-          subPath: topic-throttling.json
+        name: telemetry-config-vol
+        mountPath: /usr/local/etc/service/kafka-topics.json
+        readOnly: true
+        subPath: kafka-topics.json
 
   volumes:
     telemetry-config-vol:
       name: telemetry-config-vol
       configMap:
         name: telemetry-metrics-filter-topics
-    telemetry-rates-vol:
-      name: telemetry-rates-vol
-      configMap:
-        name: telemetry-metrics-filter-rates
