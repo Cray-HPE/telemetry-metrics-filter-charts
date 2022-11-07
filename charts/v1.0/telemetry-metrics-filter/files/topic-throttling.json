@@ -1,0 +1,14 @@
+[
+  {
+    "Topic": "cray-telemetry-temperature",
+    "Rate": 10
+  },
+  {
+    "Topic": "cray-telemetry-power",
+    "Rate": 10
+  },
+  {
+    "Topic": "Default rate",
+    "Rate": 30
+  }
+]
