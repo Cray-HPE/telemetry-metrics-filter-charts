@@ -11,6 +11,8 @@ cray-service:
   nameOverride: "telemetry-metrics-filter"
   fullnameOverride: "telemetry-metrics-filter"
   replicaCount: 3
+  podAnnotations:
+    traffic.sidecar.istio.io/excludeOutboundPorts: "8082,9092,2181"
   strategy:
     rollingUpdate:
       maxUnavailable: 50%
@@ -37,12 +39,12 @@ cray-service:
         - name: KAFKA_TOPIC_FILE
           value: "/usr/local/etc/service/kafka-topics.json"
 
-      livenessProbe:
-        httpGet:
-          port: 9088
-          path: /metrics
-        initialDelaySeconds: 10
-        periodSeconds: 20
+#      livenessProbe:
+#        httpGet:
+#          port: 9088
+#          path: /metrics
+#        initialDelaySeconds: 10
+#        periodSeconds: 20
 #      readinessProbe:
 #        httpGet:
 #          port: 27777
