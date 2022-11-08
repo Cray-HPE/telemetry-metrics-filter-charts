@@ -1,6 +1,6 @@
 ---
 global:
-  appVersion: 0.0.6
+  appVersion: 0.0.7
 
 image:
   repository: artifactory.algol60.net/csm-docker/stable/telemetry-metrics-filter
@@ -11,16 +11,6 @@ cray-service:
   nameOverride: "telemetry-metrics-filter"
   fullnameOverride: "telemetry-metrics-filter"
   replicaCount: 3
-  affinity:
-    podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-      - topologyKey: kubernetes.io/hostname
-        labelSelector:
-          matchExpressions:
-            - key: app.kubernetes.io/name
-              operator: In
-              values:
-              - telemetry-metrics-filter
   strategy:
     rollingUpdate:
       maxUnavailable: 50%
