@@ -35,18 +35,19 @@ cray-service:
         - name: BROKER_CONFIG_FILE
           value: /usr/local/etc/service/telemetry-filter-broker-config.json
 
-#      livenessProbe:
-#        httpGet:
-#          port: 9088
-#          path: /metrics
-#        initialDelaySeconds: 10
-#        periodSeconds: 20
-#      readinessProbe:
-#        httpGet:
-#          port: 27777
-#          path: /capmc/v1/readiness
-#        initialDelaySeconds: 5
-#        periodSeconds: 60
+      livenessProbe:
+        httpGet:
+          port: 9088
+          path: /liveness
+        initialDelaySeconds: 10
+        periodSeconds: 20
+      readinessProbe:
+        httpGet:
+          port: 9088
+          path: /readiness
+        initialDelaySeconds: 5
+        periodSeconds: 60
+      command: ["telemetry-metrics-filter"]
       resources:
         limits:
           cpu: "10"
