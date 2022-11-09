@@ -1,0 +1,17 @@
+apiVersion: v2
+name: "telemetry-metrics-filter-go"
+version: 0.0.6
+description: "Kubernetes resources for telemetry-metric-filter"
+home: "https://github.com/Cray-HPE/telemetry-metric-filter-charts"
+sources:
+  - "https://github.com/Cray-HPE/telemetry-metric-filter"
+maintainers:
+  - name: Hardware Management
+    url: https://github.com/orgs/Cray-HPE/teams/cray-monitoring
+appVersion: "0.0.7"
+dependencies:
+  - name: cray-service
+    version: "~7.0.0"
+    repository: https://artifactory.algol60.net/artifactory/csm-helm-charts
+annotations:
+  artifacthub.io/license: "MIT"
