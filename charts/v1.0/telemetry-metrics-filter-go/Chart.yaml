@@ -8,7 +8,7 @@ sources:
 maintainers:
   - name: Hardware Management
     url: https://github.com/orgs/Cray-HPE/teams/cray-monitoring
-appVersion: "0.0.7"
+appVersion: "0.0.7-20221110164845.3cbd824"
 dependencies:
   - name: cray-service
     version: "~7.0.0"
