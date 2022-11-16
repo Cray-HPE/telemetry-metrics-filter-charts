@@ -4,5 +4,6 @@ metadata:
   name: telemetry-metrics-filter-topics-go
   namespace: services
 data:
-  telemetry-filter-broker-config.json: |-
-{{ .Files.Get "files/telemetry-filter-broker-config.json" | indent 4 }}
+  telemetry-filter-broker-config.json: |
+  {{- "\n" }}
+  {{- index .Values "telemetry-filter-broker-config" | toPrettyJson | indent 4}}
