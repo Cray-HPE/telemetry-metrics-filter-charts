@@ -1,6 +1,6 @@
 ---
 global:
-  appVersion: 0.0.7-20221110164845.3cbd824
+  appVersion: 0.0.8-20221116214749.5c931a0
 
 image:
   repository: artifactory.algol60.net/csm-docker/unstable/telemetry-metrics-filter-go
@@ -76,8 +76,7 @@ telemetry-filter-broker-config:
   
   # Kafka consumer configuration options: https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
   ConsumerConfiguration:
-    group.id: "telemetry-metrics-filter"
-    session.timeout.ms: 30000
+    session.timeout.ms: 30001
     auto.offset.reset: "latest"
   
   # Kafka producer configuration options: https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
