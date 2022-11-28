@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: telemetry-metrics-filter-topics-go
+  name: telemetry-metrics-filter-topics
   namespace: services
 data:
   telemetry-filter-broker-config.json: |

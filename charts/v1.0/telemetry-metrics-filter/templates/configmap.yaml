@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: telemetry-metrics-filter-topics
-  namespace: services
-data:
-  kafka-topics.json: |-
-{{ .Files.Get "files/kafka-topics.json" | indent 4 }}
