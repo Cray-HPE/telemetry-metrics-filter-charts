@@ -22,9 +22,10 @@ cray-service:
       name: "telemetry-metrics-filter"
       image:
         repository: artifactory.algol60.net/csm-docker/unstable/telemetry-metrics-filter
-#      ports:
-#        - name: http
-#          containerPort: 9088 #uncomment this to expose the port. not needed right now
+      # Uncomment this to expose the port. not needed right now
+      # ports:
+      #  - name: http
+      #    containerPort: 9088
       env:
         - name: LOG_LEVEL
           value: INFO
@@ -36,7 +37,7 @@ cray-service:
         - name: BROKER_CONFIG_FILE
           value: /usr/local/etc/service/telemetry-filter-broker-config.json
         - name: UNMARSHAL_EVENT_STRATEGY
-          value:  go-json
+          value: go-json
 
       livenessProbe:
         httpGet:
@@ -73,17 +74,17 @@ cray-service:
 
 telemetry-filter-broker-config:
   BrokerAddress: "cluster-kafka-bootstrap.sma.svc.cluster.local:9092"
-  
+
   # Kafka consumer configuration options: https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
   ConsumerConfiguration:
     session.timeout.ms: 30001
     auto.offset.reset: "latest"
-  
+
   # Kafka producer configuration options: https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
   ProducerConfiguration: {}
-  
+
   FilteredTopicSuffix: "-filtered"
-  
+
   # Topic filter settings
   TopicsToFilter:
     # Example:
