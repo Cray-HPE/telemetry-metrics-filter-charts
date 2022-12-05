@@ -1,6 +1,6 @@
 ---
 global:
-  appVersion: 0.1.0-20221128191357.bb76027
+  appVersion: 0.1.0-20221130221715.d16539c
 
 image:
   repository: artifactory.algol60.net/csm-docker/unstable/telemetry-metrics-filter
