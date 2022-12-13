@@ -1,9 +1,9 @@
 ---
 global:
-  appVersion: 0.1.0-20221130221715.d16539c
+  appVersion: 0.1.0
 
 image:
-  repository: artifactory.algol60.net/csm-docker/unstable/telemetry-metrics-filter
+  repository: artifactory.algol60.net/csm-docker/stable/telemetry-metrics-filter
   pullPolicy: IfNotPresent
 
 cray-service:
@@ -21,7 +21,7 @@ cray-service:
     telemetry-metrics-filter:
       name: "telemetry-metrics-filter"
       image:
-        repository: artifactory.algol60.net/csm-docker/unstable/telemetry-metrics-filter
+        repository: artifactory.algol60.net/csm-docker/stable/telemetry-metrics-filter
       # Uncomment this to expose the port. not needed right now
       # ports:
       #  - name: http
