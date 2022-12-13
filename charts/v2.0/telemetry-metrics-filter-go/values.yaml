@@ -1,0 +1,109 @@
+---
+global:
+  appVersion: 0.1.0
+
+image:
+  repository: artifactory.algol60.net/csm-docker/stable/telemetry-metrics-filter
+  pullPolicy: IfNotPresent
+
+cray-service:
+  type: "Deployment"
+  nameOverride: "telemetry-metrics-filter"
+  fullnameOverride: "telemetry-metrics-filter"
+  replicaCount: 4
+  podAnnotations:
+    traffic.sidecar.istio.io/excludeOutboundPorts: "8082,9092,2181"
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 50%
+    type: RollingUpdate
+  containers:
+    telemetry-metrics-filter:
+      name: "telemetry-metrics-filter"
+      image:
+        repository: artifactory.algol60.net/csm-docker/stable/telemetry-metrics-filter
+      # Uncomment this to expose the port. not needed right now
+      # ports:
+      #  - name: http
+      #    containerPort: 9088
+      env:
+        - name: LOG_LEVEL
+          value: INFO
+        # TODO TUNE
+        - name: WORKER_COUNT
+          value: "10"
+        - name: HTTP_LISTEN
+          value: 0.0.0.0:9088
+        - name: BROKER_CONFIG_FILE
+          value: /usr/local/etc/service/telemetry-filter-broker-config.json
+        - name: UNMARSHAL_EVENT_STRATEGY
+          value: go-json
+
+      livenessProbe:
+        httpGet:
+          port: 9088
+          path: /liveness
+        initialDelaySeconds: 10
+        periodSeconds: 20
+      readinessProbe:
+        httpGet:
+          port: 9088
+          path: /readiness
+        initialDelaySeconds: 5
+        periodSeconds: 60
+      command: ["telemetry-metrics-filter"]
+      resources:
+        # TODO TUNE
+        limits:
+          cpu: "10"
+          memory: 2Gi
+        requests:
+          cpu: "10"
+          memory: 128Mi
+      volumeMounts:
+        - name: telemetry-config-vol
+          mountPath: /usr/local/etc/service/telemetry-filter-broker-config.json
+          readOnly: true
+          subPath: telemetry-filter-broker-config.json
+
+  volumes:
+    telemetry-config-vol:
+      name: telemetry-config-vol
+      configMap:
+        name: telemetry-metrics-filter-topics
+
+telemetry-filter-broker-config:
+  BrokerAddress: "cluster-kafka-bootstrap.sma.svc.cluster.local:9092"
+
+  # Kafka consumer configuration options: https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
+  ConsumerConfiguration:
+    session.timeout.ms: 30001
+    auto.offset.reset: "latest"
+
+  # Kafka producer configuration options: https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
+  ProducerConfiguration: {}
+
+  FilteredTopicSuffix: "-filtered"
+
+  # Topic filter settings
+  TopicsToFilter:
+    # Example:
+    # source-topic-name:
+    #   ThrottlePeriodSeconds: 30 # Required field
+    #   DestinationTopicName: destination-topic-name # Optional field. If not provided, then FilteredTopicSuffix will be appended to the source-topic-name
+    cray-telemetry-temperature:
+      ThrottlePeriodSeconds: 30
+    cray-telemetry-voltage:
+      ThrottlePeriodSeconds: 30
+    cray-telemetry-power:
+      ThrottlePeriodSeconds: 1
+    cray-telemetry-energy:
+      ThrottlePeriodSeconds: 10
+    cray-telemetry-fan:
+      ThrottlePeriodSeconds: 10
+    cray-telemetry-pressure:
+      ThrottlePeriodSeconds: 10
+    cray-telemetry-humidity:
+      ThrottlePeriodSeconds: 10
+    cray-telemetry-liquidflow:
+      ThrottlePeriodSeconds: 10
